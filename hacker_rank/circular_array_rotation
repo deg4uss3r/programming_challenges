@@ -1,0 +1,50 @@
+use std::io;
+
+trait right_shift {
+    fn right_shift(&mut self);
+}
+
+impl right_shift for Vec<usize> {
+    fn right_shift(&mut self) {
+        let vec_len = self.len()-1;
+        let last = self.remove(vec_len);
+        self.insert(0,last);
+    }
+}
+
+
+
+fn main() {
+    let mut instructions = String::new();
+    io::stdin().read_line(&mut instructions).unwrap();
+    instructions.pop();
+
+    let instruction_array_string: Vec<&str> = instructions.split(" ").collect();
+    let mut instruction_array: Vec<usize> = instruction_array_string.iter().map(|i| {i.parse::<usize>().unwrap()}).collect(); //n (lenght of array), k (number of right shifts), q (number of queries)
+    
+    let mut values_string = String::new();
+    io::stdin().read_line(&mut values_string).unwrap();
+    values_string.pop();
+    
+    let values_str_array: Vec<&str> = values_string.split(" ").collect();
+    let mut values: Vec<usize> = values_str_array.iter().map(|i| {i.parse::<usize>().unwrap()}).collect();
+   
+    while instruction_array[1] > 0 {
+        values.right_shift();
+        instruction_array[1] -=1;
+    }
+    
+    while instruction_array[2] > 0 {
+        let mut query_string = String::new();
+        io::stdin().read_line(&mut query_string).unwrap();
+        
+        if instruction_array[2] > 1 {
+            query_string.pop();
+        }
+        
+        let query = query_string.parse::<usize>().unwrap();
+        
+        println!("{}", values[query]);
+        instruction_array[2] -= 1;
+    }
+}

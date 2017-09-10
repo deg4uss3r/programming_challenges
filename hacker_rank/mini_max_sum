@@ -1,0 +1,18 @@
+use std::io;
+
+fn main() {
+    let mut array_string = String::new();
+    io::stdin().read_line(&mut array_string).unwrap();
+    let mut array: Vec<&str> = array_string.split(" ").collect();
+    let mut n: Vec<isize> = array.iter().map(|i| {i.parse::<isize>().unwrap()}).collect();
+    let mut m: Vec<isize> = n.clone();
+    n.sort();
+    n.remove(0); //largest number
+    m.sort();
+    let m_length = m.len()-1;
+    m.remove(m_length); //smallest number
+    let largest: isize = n.iter().sum();
+    let smallest: isize = m.iter().sum();
+    
+    println!("{} {}", smallest, largest);
+}

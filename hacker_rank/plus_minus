@@ -1,0 +1,34 @@
+use std::io;
+
+fn main() {
+    let mut positive_integers: f64 = 0.0;
+    let mut negative_integers: f64 = 0.0;
+    let mut zero_integers: f64 = 0.0;
+    
+    let mut array_length_string = String::new();
+    io::stdin().read_line(&mut array_length_string);
+    array_length_string.pop();
+    let array_length = array_length_string.parse::<f64>().unwrap();
+    
+    let mut array_string = String::new();
+    io::stdin().read_line(&mut array_string);
+    let array_split: Vec<&str> = array_string.split(" ").collect();
+
+   for i in array_split.iter() {
+       let number = i.parse::<isize>().unwrap();
+       
+       match number.signum() {
+           1 => positive_integers += 1.0,
+           -1 => negative_integers += 1.0, 
+           0 => zero_integers += 1.0,
+           _ => std::process::exit(1)
+       }
+    }
+    
+    positive_integers = positive_integers/array_length;
+    negative_integers = negative_integers/array_length;
+    zero_integers = zero_integers/array_length;
+    
+    println!("{:.6}\n{:.6}\n{:.6}", positive_integers,negative_integers,zero_integers);
+    
+}

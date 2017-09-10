@@ -1,0 +1,48 @@
+use std::io;
+use std::vec::Vec;
+
+fn main() {
+    let mut matrix: Vec<Vec<isize>> = Vec::new();
+    
+    let mut matrix_size_string = String::new();
+    io::stdin().read_line(&mut matrix_size_string).expect("IO Error!");
+    matrix_size_string.pop();
+    let mut matrix_size = matrix_size_string.parse::<usize>().unwrap();
+    let row_size = matrix_size-1;
+    
+    while matrix_size > 0 {
+        let mut row_string = String::new();
+        let mut row: Vec<isize> = Vec::new();
+        
+        io::stdin().read_line(&mut row_string).expect("IO Error!");
+        let mut row_array_string: Vec<&str> = row_string.split(" ").collect();
+        
+            for (count, i) in row_array_string.iter().enumerate() {
+                if matrix_size != 1 && count == row_size {
+                    let mut nl = i.to_string();
+                    nl.pop();
+                    row.push(nl.parse::<isize>().unwrap());
+                }
+                else {
+                    row.push(i.parse::<isize>().unwrap());
+                }
+            }
+        
+        matrix.push(row);
+        
+        matrix_size -= 1;
+    }
+  
+    let mut primary_dia: Vec<isize> = Vec::new();
+    let mut secondary_dia: Vec<isize> = Vec::new();
+    
+    for (count,i) in matrix.iter().enumerate() {
+        primary_dia.push(i[count]);
+        secondary_dia.push(i[row_size - count]);
+    }
+    
+    let prim: isize = primary_dia.iter().sum();
+    let secd: isize = secondary_dia.iter().sum();
+        
+    println!("{}", (prim-secd).abs()); 
+}

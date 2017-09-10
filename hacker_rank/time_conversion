@@ -1,0 +1,31 @@
+use std::io;
+
+fn main() {
+    let mut time = String::new();
+    io::stdin().read_line(&mut time).unwrap();
+    let mut time_values: Vec<&str> = time.split(":").collect();
+    
+    let mut timeout = String::new();
+    
+    if &time_values[2][2..] == "PM" {
+        if time_values[0] == "12" {
+            timeout = time_values[0].to_string() + ":" + time_values[1] + ":" + &time_values[2][..2];
+        }
+        else {
+            let mut new_hour = time_values[0].parse::<usize>().unwrap();
+            new_hour += 12;
+            timeout = new_hour.to_string() + ":" + time_values[1] + ":" + &time_values[2][..2];
+        }        
+    }
+    else {
+        if time_values[0] == "12" {
+            let new_hour = "00";
+            timeout = new_hour.to_string() + ":" + time_values[1] + ":" + &time_values[2][..2];
+        }
+        else {
+            timeout = time_values[0].to_string() + ":" + time_values[1] + ":" + &time_values[2][..2];
+        }
+    }
+    
+    println!("{}", timeout);
+}

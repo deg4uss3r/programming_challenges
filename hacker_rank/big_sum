@@ -1,0 +1,18 @@
+use std::io;
+
+fn main() {
+    let mut total = 0;
+    
+    let mut array_length_string = String::new();
+    io::stdin().read_line(&mut array_length_string).expect("IO read error");
+    
+    let mut number_array_string = String::new();
+    io::stdin().read_line(&mut number_array_string).expect("IO read error");
+    let number_array: Vec<&str> = number_array_string.split(" ").collect();
+    
+    for i in number_array.iter() {
+        total += i.parse::<usize>().unwrap();
+    }
+    
+    println!("{}", total);
+}

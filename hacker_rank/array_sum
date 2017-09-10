@@ -1,0 +1,26 @@
+use std::io;
+
+fn main() {
+    let mut total = 0;
+    
+    let mut array_length_string = String::new();
+    io::stdin().read_line(&mut array_length_string).expect("`read_line` error");
+    array_length_string.pop();
+    let array_length = array_length_string.parse::<usize>().unwrap();
+
+    let mut value_array_string = String::new();
+    io::stdin().read_line(&mut value_array_string).expect("`read_line` error");
+       
+    let value_array: Vec<&str> = value_array_string.split(" ").collect();
+    
+    if value_array.len() != array_length {
+        println!("Array length doens't match, test parsing error");
+    }
+    
+    for value in value_array {            
+        let usize_value = value.parse::<usize>().unwrap();
+        total += usize_value;
+    }
+    
+    println!("{}", total);
+}

@@ -1,0 +1,14 @@
+use std::io; 
+
+fn main() {
+    let mut n_string = String::new();
+    io::stdin().read_line(&mut n_string).unwrap();
+    let mut n = n_string.parse::<usize>().unwrap();
+    let mut x = 1;
+    
+    while x <= n {
+        let width = n-x;
+        println!("{}{}", " ".repeat(width), "#".repeat(x));
+        x += 1;
+    }
+}

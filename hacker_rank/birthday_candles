@@ -1,0 +1,24 @@
+use std::io; 
+
+fn main() {
+    let mut idc = String::new();
+    io::stdin().read_line(&mut idc).unwrap();
+
+    let mut candles_string = String::new();
+    io::stdin().read_line(&mut candles_string).unwrap(); 
+    let candles_str: Vec<&str> = candles_string.split(" ").collect();
+    let mut candles: Vec<usize> = candles_str.iter().map(|i| {i.parse::<usize>().unwrap()}).collect();
+    candles.sort();
+    let candles_len = candles.len()-1;
+    let tallest = candles[candles_len];
+    let mut x = 0;
+    for i in candles.iter().rev() {
+        if i == &tallest {
+            x+=1;
+        }
+        else {
+            continue;
+        }
+    }
+    println!("{}", x);
+} 
